@@ -2,6 +2,7 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\ConnectionController;
 use App\Http\Controllers\SuggestionController;
 use App\Http\Controllers\SentRequestController;
 use App\Http\Controllers\ReceivedRequestController;
@@ -27,5 +28,13 @@ Route::delete('sent_requests/{id}',[SentRequestController::class, 'destroy']);
 
 Route::get('received_requests/{id}/{offset}',[ReceivedRequestController::class, 'index']);
 
-
 Route::get('suggestions/{id}/{offset}',[SuggestionController::class, 'index']);
+
+Route::get('connections/{id}/{offset}',[ConnectionController::class, 'index']);
+Route::post('connections',[ConnectionController::class, 'store']);
+Route::delete('connections/{id}',[ConnectionController::class, 'destroy']);
+Route::get('connections/common/{id}/{userId}/{offset}',[ConnectionController::class, 'show']);
+
+
+
+

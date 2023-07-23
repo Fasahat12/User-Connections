@@ -1,4 +1,4 @@
-@props(['suggestionCount', 'sentRequestCount'])
+@props(['suggestionCount', 'sentRequestCount', 'receivedRequestCount', 'connectionCount'])
 <div class="row justify-content-center mt-5">
   <div class="col-12">
     <div class="card shadow  text-white bg-dark">
@@ -13,10 +13,10 @@
 
           <input type="radio" class="btn-check" name="btnradio" id="btnradio3" autocomplete="off">
           <label class="btn btn-outline-primary" for="btnradio3" id="get_received_requests_btn">Received
-            Requests()</label>
+            Requests({{ $receivedRequestCount }})</label>
 
           <input type="radio" class="btn-check" name="btnradio" id="btnradio4" autocomplete="off">
-          <label class="btn btn-outline-primary" for="btnradio4" id="get_connections_btn">Connections ()</label>
+          <label class="btn btn-outline-primary" for="btnradio4" id="get_connections_btn">Connections ({{ $connectionCount }})</label>
         </div>
         <hr>
         <div id="content" class="">
@@ -25,7 +25,7 @@
         </div>
 
         @if ($suggestionCount > 10)
-        <div class="d-flex justify-content-center mt-2 py-3 {{-- d-none --}}" id="load_more_btn_parent">
+        <div class="d-flex justify-content-center mt-2 py-3" id="load_more_btn_parent">
           <button class="btn btn-primary" onclick="" id="load_more_btn">Load more</button>
         </div>
         @endif

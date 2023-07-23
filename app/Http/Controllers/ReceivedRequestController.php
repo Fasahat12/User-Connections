@@ -17,7 +17,7 @@ class ReceivedRequestController extends Controller
         $users = DB::table('users')
         ->join('requests', 'users.id', '=', 'requests.sender_id')
         ->where('requests.receiver_id', '=', $id)
-        ->select('users.*')
+        ->selectRaw('users.*, requests.id as request_id')
         ->offset($offset)
         ->limit(10)
         ->get();

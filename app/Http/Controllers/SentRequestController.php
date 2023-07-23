@@ -18,7 +18,7 @@ class SentRequestController extends Controller
         $users = DB::table('users')
         ->join('requests', 'users.id', '=', 'requests.receiver_id')
         ->where('requests.sender_id', '=', $id)
-        ->select('users.*')
+        ->selectRaw('users.*, requests.id as request_id')
         ->offset($offset)
         ->limit(10)
         ->get();

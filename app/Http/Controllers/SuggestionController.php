@@ -21,7 +21,22 @@ class SuggestionController extends Controller
                 $join->on('users.id', '=', 'requests.receiver_id')
                     ->where('requests.sender_id', '=', $id);
             })
+            ->leftJoin('requests as received_requests', function ($join) use ($id) {
+                $join->on('users.id', '=', 'received_requests.sender_id')
+                    ->where('received_requests.receiver_id', '=', $id);
+            })
+            ->leftJoin('connections', function ($join) use ($id) {
+                $join->on('users.id', '=', 'connections.first_user')
+                    ->where('connections.second_user', '=', $id);
+            })
+            ->leftJoin('connections as second_connections', function ($join) use ($id) {
+                $join->on('users.id', '=', 'second_connections.second_user')
+                    ->where('second_connections.first_user', '=', $id);
+            })
             ->whereNull('requests.id')
+            ->whereNull('received_requests.id')
+            ->whereNull('connections.id')
+            ->whereNull('second_connections.id')
             ->where('users.id', '!=', $id)
             ->select('users.*')
             ->offset($offset)
@@ -29,13 +44,29 @@ class SuggestionController extends Controller
             ->get();
 
         $allUsers = DB::table('users')
-                ->leftJoin('requests', function ($join) use ($id) {
-                    $join->on('users.id', '=', 'requests.receiver_id')
-                        ->where('requests.sender_id', '=', $id);
-                })
-                ->whereNull('requests.id')
-                ->where('users.id', '!=', $id)
-                ->get();
+            ->leftJoin('requests', function ($join) use ($id) {
+                $join->on('users.id', '=', 'requests.receiver_id')
+                    ->where('requests.sender_id', '=', $id);
+            })
+            ->leftJoin('requests as received_requests', function ($join) use ($id) {
+                $join->on('users.id', '=', 'received_requests.sender_id')
+                    ->where('received_requests.receiver_id', '=', $id);
+            })
+            ->leftJoin('connections', function ($join) use ($id) {
+                $join->on('users.id', '=', 'connections.first_user')
+                    ->where('connections.second_user', '=', $id);
+            })
+            ->leftJoin('connections as second_connections', function ($join) use ($id) {
+                $join->on('users.id', '=', 'second_connections.second_user')
+                    ->where('second_connections.first_user', '=', $id);
+            })
+            ->whereNull('requests.id')
+            ->whereNull('received_requests.id')
+            ->whereNull('connections.id')
+            ->whereNull('second_connections.id')
+            ->where('users.id', '!=', $id)
+            ->get();
+
         $count = count($allUsers);
 
         return [ 'users' => $users, 'count' => $count ];

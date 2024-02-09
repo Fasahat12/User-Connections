@@ -1,4 +1,4 @@
-# Ikonic Coding Challenge 💻
+# Coding Challenge 💻
 
 Hello and welcome to the Ikonic Coding Challenge. Thank you for your interest in becoming part of our team. The purpose of this challenge is to give you a feeling for the tasks that await you at Ikonic and to familiarize you with our current stack.
 
